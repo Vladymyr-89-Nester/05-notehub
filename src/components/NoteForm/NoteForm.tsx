@@ -7,7 +7,6 @@ import toast from "react-hot-toast";
 
 interface NoteFormProps {
   onClose: () => void;
-  setIsOpenModal: (string: boolean) => void;
 }
 
 const validationSchema = Yup.object({
@@ -24,14 +23,14 @@ const validationSchema = Yup.object({
     .required("Please select a tag"),
 });
 
-export default function NoteForm({ onClose, setIsOpenModal }: NoteFormProps) {
+export default function NoteForm({ onClose }: NoteFormProps) {
   const queryClient = useQueryClient();
 
   const createNoteMutation = useMutation({
     mutationFn: (newNote: CreateNoteParams) => createNote(newNote),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["notes"] });
-      setIsOpenModal(false);
+      onClose();
       toast.success("Note added successfully!", { duration: 7000 });
     },
     onError: () => {

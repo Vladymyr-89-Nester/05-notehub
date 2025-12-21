@@ -89,10 +89,7 @@ export default function App() {
       )}
       {isOpenModal && (
         <Modal onClose={handleCloseModal}>
-          <NoteForm
-            onClose={handleCloseModal}
-            setIsOpenModal={setIsOpenModal}
-          />
+          <NoteForm onClose={handleCloseModal} />
         </Modal>
       )}
     </div>
