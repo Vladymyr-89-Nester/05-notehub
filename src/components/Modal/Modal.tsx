@@ -13,9 +13,15 @@ export default function Modal({ children, onClose }: ModalProps) {
       if (e.key === "Escape") onClose();
     };
 
-    window.addEventListener("keydown", handleEscKey);
+    const prevOverflow = document.body.style.overflow;
 
-    return () => window.removeEventListener("keydown", handleEscKey);
+    document.addEventListener("keydown", handleEscKey);
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.removeEventListener("keydown", handleEscKey);
+      document.body.style.overflow = prevOverflow;
+    };
   }, [onClose]);
 
   const handleModalClick = (e: React.MouseEvent<HTMLDivElement>) => {

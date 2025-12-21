@@ -7,8 +7,8 @@ interface SearchBoxProps {
 }
 
 export default function SearchBox({ query, onChange }: SearchBoxProps) {
-  const hendleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.trim();
+  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
 
     onChange(value);
   };
@@ -19,7 +19,7 @@ export default function SearchBox({ query, onChange }: SearchBoxProps) {
       type="text"
       placeholder="Search notes"
       value={query}
-      onChange={hendleOnChange}
+      onChange={handleOnChange}
     />
   );
 }

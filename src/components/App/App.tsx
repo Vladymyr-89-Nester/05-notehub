@@ -1,17 +1,7 @@
-import {
-  keepPreviousData,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from "@tanstack/react-query";
-import NodeList from "../NoteList/NoteList";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import NoteList from "../NoteList/NoteList";
 import css from "./App.module.css";
-import {
-  createNote,
-  deleteNote,
-  fetchNotes,
-  type CreateNoteParams,
-} from "../../services/noteService";
+import { fetchNotes } from "../../services/noteService";
 import { useEffect, useRef, useState } from "react";
 import SearchBox from "../SearchBox/SearchBox";
 import { useDebounce } from "use-debounce";
@@ -25,12 +15,10 @@ import toast, { Toaster } from "react-hot-toast";
 export default function App() {
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
-  const [queryDebounce] = useDebounce(query, 700);
+  const [queryDebounce] = useDebounce(query.trim(), 700);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const hasShownEmptyToast = useRef(false);
   const prevQuery = useRef("");
-
-  const queryClient = useQueryClient();
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["notes", page, queryDebounce],
@@ -41,29 +29,6 @@ export default function App() {
         search: queryDebounce,
       }),
     placeholderData: keepPreviousData,
-  });
-
-  const createNoteMutation = useMutation({
-    mutationFn: (newNote: CreateNoteParams) => createNote(newNote),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
-      setIsOpenModal(false);
-      toast.success("Note added successfully!", { duration: 7000 });
-    },
-    onError: () => {
-      toast.error("Failed to add note. Please try again.", { duration: 7000 });
-    },
-  });
-
-  const deleteteNoteMutation = useMutation({
-    mutationFn: (id: string) => deleteNote(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notes"] });
-      toast.success("Note deleted", { duration: 7000 });
-    },
-    onError: () => {
-      toast.error("Failed to delete note", { duration: 7000 });
-    },
   });
 
   useEffect(() => {
@@ -90,14 +55,6 @@ export default function App() {
   const handleSearchChange = (query: string) => {
     setQuery(query);
     setPage(1);
-  };
-
-  const handleCreateNote = (newNote: CreateNoteParams) => {
-    createNoteMutation.mutate(newNote);
-  };
-
-  const handleDeleteteNote = (id: string) => {
-    deleteteNoteMutation.mutate(id);
   };
 
   const handleOpenModal = () => {
@@ -128,11 +85,14 @@ export default function App() {
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
       {!isLoading && !isError && data && data.notes.length > 0 && (
-        <NodeList notes={data.notes} onDelete={handleDeleteteNote} />
+        <NoteList notes={data.notes} />
       )}
       {isOpenModal && (
         <Modal onClose={handleCloseModal}>
-          <NoteForm onClose={handleCloseModal} onSubmit={handleCreateNote} />
+          <NoteForm
+            onClose={handleCloseModal}
+            setIsOpenModal={setIsOpenModal}
+          />
         </Modal>
       )}
     </div>

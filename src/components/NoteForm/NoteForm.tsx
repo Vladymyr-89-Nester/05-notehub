@@ -1,11 +1,13 @@
 import { Formik, Form, Field, ErrorMessage, type FormikHelpers } from "formik";
 import css from "./NoteForm.module.css";
 import * as Yup from "yup";
-import type { CreateNoteParams } from "../../services/noteService";
+import { createNote, type CreateNoteParams } from "../../services/noteService";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 
 interface NoteFormProps {
   onClose: () => void;
-  onSubmit: (values: CreateNoteParams) => void;
+  setIsOpenModal: (string: boolean) => void;
 }
 
 const validationSchema = Yup.object({
@@ -16,14 +18,27 @@ const validationSchema = Yup.object({
     .trim(),
   content: Yup.string()
     .max(500, "Content must be at most 500 characters")
-    .required("Content is required")
     .trim(),
   tag: Yup.string()
     .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
     .required("Please select a tag"),
 });
 
-export default function NoteForm({ onClose, onSubmit }: NoteFormProps) {
+export default function NoteForm({ onClose, setIsOpenModal }: NoteFormProps) {
+  const queryClient = useQueryClient();
+
+  const createNoteMutation = useMutation({
+    mutationFn: (newNote: CreateNoteParams) => createNote(newNote),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["notes"] });
+      setIsOpenModal(false);
+      toast.success("Note added successfully!", { duration: 7000 });
+    },
+    onError: () => {
+      toast.error("Failed to add note. Please try again.", { duration: 7000 });
+    },
+  });
+
   const valuesOnForm = (
     values: CreateNoteParams,
     actions: FormikHelpers<CreateNoteParams>
@@ -33,7 +48,8 @@ export default function NoteForm({ onClose, onSubmit }: NoteFormProps) {
       content: values.content.trim(),
       title: values.title.trim(),
     };
-    onSubmit(valuesTrimmer);
+
+    createNoteMutation.mutate(valuesTrimmer);
 
     actions.resetForm();
   };
