@@ -35,3 +35,9 @@ Coming soon
 - Axios
 - react-hot-toast
 - CSS Modules
+
+👤 Author
+
+GitHub: https://github.com/Vladymyr-89-Nester
+
+LinkedIn: https://www.linkedin.com/in/vladymyr-nesterenko-full-stack
