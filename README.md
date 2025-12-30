@@ -7,8 +7,6 @@ The app allows users to create, search, paginate, and delete notes using a REST 
 
 ## 🔗 https://05-notehub-blue-five.vercel.app/
 
-Coming soon
-
 ---
 
 ## ✨ Features
@@ -26,17 +24,17 @@ Coming soon
 
 ## 🛠 Tech Stack
 
-- React
-- TypeScript
-- Vite
-- TanStack Query (React Query)
+<img src="https://cdn.simpleicons.org/react" width="20" /> React  
+<img src="https://cdn.simpleicons.org/typescript" width="20" /> TypeScript  
+<img src="https://cdn.simpleicons.org/reactquery" width="20" /> TanStack Query  
+<img src="https://cdn.simpleicons.org/vite" width="20" /> Vite
 - Formik
 - Yup
 - Axios
 - react-hot-toast
 - CSS Modules
 
-👤 Author
+## 👤 Author
 
 GitHub: https://github.com/Vladymyr-89-Nester
 
