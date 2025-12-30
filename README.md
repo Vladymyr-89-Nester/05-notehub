@@ -5,7 +5,7 @@ The app allows users to create, search, paginate, and delete notes using a REST 
 
 ---
 
-## 🔗 Live Demo
+## 🔗 https://05-notehub-blue-five.vercel.app/
 
 Coming soon
 
