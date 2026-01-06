@@ -1,73 +1,41 @@
-# React + TypeScript + Vite
+# 📝 NoteHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NoteHub is a simple note management application built with React and TypeScript.  
+The app allows users to create, search, paginate, and delete notes using a REST API.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🔗 https://05-notehub-blue-five.vercel.app/
 
-## React Compiler
+---
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## ✨ Features
 
-## Expanding the ESLint configuration
+- Create new notes via modal window
+- Delete existing notes
+- Search notes by keyword
+- Pagination support
+- Toast notifications for user feedback
+- Loading and error states handling
+- Debounced search requests
+- Scroll lock when modal is open
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠 Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+<img src="https://cdn.simpleicons.org/react" width="20" /> React  
+<img src="https://cdn.simpleicons.org/typescript" width="20" /> TypeScript  
+<img src="https://cdn.simpleicons.org/reactquery" width="20" /> TanStack Query  
+<img src="https://cdn.simpleicons.org/vite" width="20" /> Vite
+- Formik
+- Yup
+- Axios
+- react-hot-toast
+- CSS Modules
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 👤 Author
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+GitHub: https://github.com/Vladymyr-89-Nester
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+LinkedIn: https://www.linkedin.com/in/vladymyr-nesterenko-full-stack
